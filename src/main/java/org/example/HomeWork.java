@@ -1,6 +1,10 @@
 package org.example;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 public class HomeWork {
@@ -24,8 +28,28 @@ public class HomeWork {
      * Сигнатуру метода не меняем
      */
     public String findMaxSubstring(String str) {
-        //TODO реализовать метод
-        return null;
+
+        if (str == null || str.isEmpty()) return null;
+
+        String result = null;
+
+        int i = 0, j = 0, max = 0;
+        Set<Character> set = new LinkedHashSet<>();
+
+        while (j < str.length()) {
+            if (!set.contains(str.charAt(j))) {
+                set.add(str.charAt(j++));
+                if(max < set.size()) {
+                    max = set.size();
+                    result = set.stream().map(String::valueOf).collect(Collectors.joining());
+                }
+            } else {
+                set.remove(str.charAt(i++));
+            }
+        }
+
+        return result;
+
     }
 
 
@@ -40,7 +64,18 @@ public class HomeWork {
      * @see <a href="https://www.codewars.com/kata/545cedaa9943f7fe7b000048">https://www.codewars.com/kata/545cedaa9943f7fe7b000048</a>
      */
     public boolean check(String sentence){
-        return false;
+        String replaced = sentence.replaceAll("\\s+", "");
+        Set<Character> set = new HashSet<>();
+         for (Character ch : replaced.toLowerCase(Locale.ENGLISH).toCharArray()) {
+             set.add(ch);
+         }
+         if(set.size() != 26) return false;
+
+         for(char letter = 'a'; letter <= 'z'; letter++) {
+             if(!set.contains(letter)) return false;
+         }
+
+         return true;
     }
 
 }
