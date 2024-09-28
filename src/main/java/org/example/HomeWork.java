@@ -1,6 +1,7 @@
 package org.example;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class HomeWork {
@@ -24,8 +25,29 @@ public class HomeWork {
      * Сигнатуру метода не меняем
      */
     public String findMaxSubstring(String str) {
-        //TODO реализовать метод
-        return null;
+        if (str == null || str.isEmpty())
+            return str;
+        char[] charStr = str.toCharArray();
+        int begin = 0;
+        int size = 1;
+        int length = str.length();
+        for (int i = 0; i < length - 1; i++) {
+            Set<Character> tempCharStr = new HashSet<>();
+            tempCharStr.add(charStr[i]);
+
+            for (int j = i + 1; j < length; j++) {
+                if (tempCharStr.add(charStr[j])){
+                    if (size < j - i + 1){
+                        begin = i;
+                        size = j - i + 1;
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+        }
+        return str.substring(begin, begin + size);
     }
 
 
@@ -40,7 +62,17 @@ public class HomeWork {
      * @see <a href="https://www.codewars.com/kata/545cedaa9943f7fe7b000048">https://www.codewars.com/kata/545cedaa9943f7fe7b000048</a>
      */
     public boolean check(String sentence){
+        String sen = sentence.replaceAll("\\s+","").toLowerCase();
+        if (sen.matches("[a-z]*")){
+            char[] charStr = sen.toCharArray();
+            Set<Character> temp = new HashSet<>();
+            for(Character c  : charStr){
+                temp.add(c);
+            }
+            if (temp.size() == 26){
+                return true;
+            }
+        }
         return false;
     }
-
 }
