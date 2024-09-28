@@ -1,6 +1,7 @@
 package org.example;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class HomeWork {
@@ -24,8 +25,28 @@ public class HomeWork {
      * Сигнатуру метода не меняем
      */
     public String findMaxSubstring(String str) {
-        //TODO реализовать метод
-        return null;
+
+        if (str == null || str.isEmpty()) return null;
+
+        String result = null;
+
+        int i = 0, j = 0, max = 0;
+        Set<Character> set = new LinkedHashSet<>();
+
+        while (j < str.length()) {
+            if (!set.contains(str.charAt(j))) {
+                set.add(str.charAt(j++));
+                if(max < set.size()) {
+                    max = set.size();
+                    result = set.stream().map(String::valueOf).collect(Collectors.joining());
+                }
+            } else {
+                set.remove(str.charAt(i++));
+            }
+        }
+
+        return result;
+
     }
 
 
