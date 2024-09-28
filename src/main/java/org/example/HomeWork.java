@@ -1,6 +1,9 @@
 package org.example;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -61,7 +64,18 @@ public class HomeWork {
      * @see <a href="https://www.codewars.com/kata/545cedaa9943f7fe7b000048">https://www.codewars.com/kata/545cedaa9943f7fe7b000048</a>
      */
     public boolean check(String sentence){
-        return false;
+        String replaced = sentence.replaceAll("\\s+", "");
+        Set<Character> set = new HashSet<>();
+         for (Character ch : replaced.toLowerCase(Locale.ENGLISH).toCharArray()) {
+             set.add(ch);
+         }
+         if(set.size() != 26) return false;
+
+         for(char letter = 'a'; letter <= 'z'; letter++) {
+             if(!set.contains(letter)) return false;
+         }
+
+         return true;
     }
 
 }
