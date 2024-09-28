@@ -63,7 +63,7 @@ public class HomeWork {
      */
     public boolean check(String sentence){
         String sen = sentence.replaceAll("\\s+","").toLowerCase();
-        if (sen.matches("[a-zA-Z]*")){
+        if (sen.matches("[a-z]*")){
             char[] charStr = sen.toCharArray();
             Set<Character> temp = new HashSet<>();
             for(Character c  : charStr){
