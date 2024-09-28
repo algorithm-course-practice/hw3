@@ -1,7 +1,7 @@
 package org.example;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class HomeWork {
@@ -62,7 +62,17 @@ public class HomeWork {
      * @see <a href="https://www.codewars.com/kata/545cedaa9943f7fe7b000048">https://www.codewars.com/kata/545cedaa9943f7fe7b000048</a>
      */
     public boolean check(String sentence){
+        String sen = sentence.replaceAll("\\s+","").toLowerCase();
+        if (sen.matches("[a-zA-Z]*")){
+            char[] charStr = sen.toCharArray();
+            Set<Character> temp = new HashSet<>();
+            for(Character c  : charStr){
+                temp.add(c);
+            }
+            if (temp.size() == 26){
+                return true;
+            }
+        }
         return false;
     }
-
 }

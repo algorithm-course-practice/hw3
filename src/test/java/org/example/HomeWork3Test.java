@@ -21,4 +21,15 @@ public class HomeWork3Test {
         assertEquals("qwertyuiop[]asdfghjkl;zxcvbnm,", homeWork.findMaxSubstring("qwertyuiop[]asdfghjkl;zxcvbnm,qwertyuiolpsdfghjklxcvbnm"));
         assertEquals("qwertyuiop[]asdfghjkl;zxcvbnm,345678", homeWork.findMaxSubstring("qwertyuiop[]asdfghjkl;zxcvbnm,qwertyuiolpsdfghjklxcvbnmqwertyuiop[]asdfghjkl;zxcvbnm,345678"));
     }
+
+    @Test
+    public void hw3CheckTest(){
+        HomeWork homeWork = new HomeWork();
+        System.out.println(homeWork.check("Jackdaws love my big sphinx of quartz"));
+        System.out.println(homeWork.check("The five boxing wizards jump quickly"));
+        System.out.println(homeWork.check("The quick brown fox jumps over the lazy dog"));
+        System.out.println(homeWork.check("The QQQQQqqquUuUuUuiIiIiIicCcCcCckKkKkKk brown fox jumps over the lazy dog"));
+        System.out.println(homeWork.check("1The quick brown fox jumps over the lazy dog"));
+        System.out.println(homeWork.check("The brown fox jumps over the lazy dog"));
+    }
 }
