@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.List;
+import java.util.*;
 
 
 public class HomeWork {
@@ -24,8 +24,28 @@ public class HomeWork {
      * Сигнатуру метода не меняем
      */
     public String findMaxSubstring(String str) {
-        //TODO реализовать метод
-        return null;
+        Set<Character> uniqueChars = new HashSet<>();
+        int maxLen = 0;
+        String maxSubstring = "";
+        int left = 0;
+
+        for (int right = 0; right < str.length(); right++) {
+            char c = str.charAt(right);
+
+            while (uniqueChars.contains(c)) {
+                uniqueChars.remove(str.charAt(left));
+                left++;
+            }
+
+            uniqueChars.add(c);
+
+            if (right - left + 1 > maxLen) {
+                maxLen = right - left + 1;
+                maxSubstring = str.substring(left, right + 1);
+            }
+        }
+
+        return maxSubstring;
     }
 
 
@@ -40,7 +60,21 @@ public class HomeWork {
      * @see <a href="https://www.codewars.com/kata/545cedaa9943f7fe7b000048">https://www.codewars.com/kata/545cedaa9943f7fe7b000048</a>
      */
     public boolean check(String sentence){
-        return false;
+        boolean[] alphabet = new boolean[26];
+
+        for (char c : sentence.toLowerCase().toCharArray()) {
+            if (c >= 'a' && c <= 'z') {
+                alphabet[c - 'a'] = true;
+            }
+        }
+
+        for (boolean present : alphabet) {
+            if (!present) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
