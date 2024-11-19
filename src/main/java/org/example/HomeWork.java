@@ -1,12 +1,51 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class HomeWork {
+
+    private static class Result {
+        public final int maxLength;
+        public final int maxStart;
+
+        public Result(int maxLength, int maxStart) {
+            this.maxLength = maxLength;
+            this.maxStart = maxStart;
+        }
+    }
+
+    private static Result getResult(String str) {
+        int start = 0;
+        int end = 0;
+        int maxLength = 0;
+        int maxStart = 0; // Начальная позиция максимальной подстроки
+        Set<Character> seen = new HashSet<>(); // Для проверки уникальности символов
+
+        while (end < str.length()) {
+            char currentChar = str.charAt(end);
+
+            // Если символ уже в множестве, сдвигаем `start` и удаляем символы
+            while (seen.contains(currentChar)) {
+                seen.remove(str.charAt(start));
+                start++;
+            }
+
+            // Добавляем текущий символ в множество
+            seen.add(currentChar);
+
+            // Обновляем максимальную длину и старт, если найдено новое большее окно
+            if (end - start + 1 > maxLength) {
+                maxLength = end - start + 1;
+                maxStart = start;
+            }
+
+            // Двигаем `end` вперед
+            end++;
+        }
+        return new Result(maxLength, maxStart);
+    }
 
     /**
      * <h1>Задание 1.</h1>
@@ -28,29 +67,14 @@ public class HomeWork {
      */
     public String findMaxSubstring(String str) {
         //TODO реализовать метод
-        return getSubString(str).stream().max((s1, s2) -> s1.length() - s2.length()).get();
-    }
-
-    private static List<String> getSubString(String str) {
-        HashMap<Character, Integer> charCount = new HashMap<>();
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < str.length(); i++) {
-            if (charCount.containsKey(str.charAt(i))) {
-                fillString(str, charCount, list, i);
-            } else {
-                charCount.put(str.charAt(i), 1);
-            }
+        if (str == null || str.isEmpty()) {
+            return "";
         }
-        fillString(str, charCount, list, str.length() - 1);
-        return list;
-    }
 
-    private static void fillString(String str, HashMap<Character, Integer> charCount, List<String> list, int i) {
-        List<String> keyList = charCount.keySet().stream().map(Object::toString).collect(Collectors.toList());
-        String temp = String.join("", keyList);
-        list.add(temp);
-        charCount.clear();
-        charCount.put(str.charAt(i), 1);
+        Result result = getResult(str);
+
+        // Возвращаем подстроку максимальной длины
+        return str.substring(result.maxStart, result.maxStart + result.maxLength);
     }
 
 

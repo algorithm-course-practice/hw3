@@ -10,6 +10,6 @@ class HomeWorkTest {
     void findMaxSubstring() {
         HomeWork homeWork = new HomeWork();
         assertEquals("abcd", homeWork.findMaxSubstring("abcddcba"));
-        assertEquals("abcdX", homeWork.findMaxSubstring("abcddcbaX"));
+        assertEquals("dcbaX", homeWork.findMaxSubstring("abcddcbaX"));
     }
 }
