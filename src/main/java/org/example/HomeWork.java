@@ -1,21 +1,63 @@
 package org.example;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class HomeWork {
+
+    private static class Result {
+        public final int maxLength;
+        public final int maxStart;
+
+        public Result(int maxLength, int maxStart) {
+            this.maxLength = maxLength;
+            this.maxStart = maxStart;
+        }
+    }
+
+    private static Result getResult(String str) {
+        int start = 0;
+        int end = 0;
+        int maxLength = 0;
+        int maxStart = 0; // Начальная позиция максимальной подстроки
+        Set<Character> seen = new HashSet<>(); // Для проверки уникальности символов
+
+        while (end < str.length()) {
+            char currentChar = str.charAt(end);
+
+            // Если символ уже в множестве, сдвигаем `start` и удаляем символы
+            while (seen.contains(currentChar)) {
+                seen.remove(str.charAt(start));
+                start++;
+            }
+
+            // Добавляем текущий символ в множество
+            seen.add(currentChar);
+
+            // Обновляем максимальную длину и старт, если найдено новое большее окно
+            if (end - start + 1 > maxLength) {
+                maxLength = end - start + 1;
+                maxStart = start;
+            }
+
+            // Двигаем `end` вперед
+            end++;
+        }
+        return new Result(maxLength, maxStart);
+    }
 
     /**
      * <h1>Задание 1.</h1>
      * Метод возвращает подстроку максимальной длины в которой не повторяются символы
      * Если найдено несколько подстрок одинаковой длины - вернуть первую.
-     *
+     * <p>
      * Пример 1 вход= abcddcba, выход = abcd
      * Так как найдены две подстроки с неповторяющимися значениями:
      * 1) abcd
      * 2) dcba
      * Они динаковой длины, по этому возвращаем 1 строку
-     *
+     * <p>
      * Пример 2 вход= abcddcbaX, выход = dcbaX
      * Так как эта подстрока самая большая
      *
@@ -25,7 +67,14 @@ public class HomeWork {
      */
     public String findMaxSubstring(String str) {
         //TODO реализовать метод
-        return null;
+        if (str == null || str.isEmpty()) {
+            return "";
+        }
+
+        Result result = getResult(str);
+
+        // Возвращаем подстроку максимальной длины
+        return str.substring(result.maxStart, result.maxStart + result.maxLength);
     }
 
 
@@ -35,11 +84,12 @@ public class HomeWork {
      * Можно решать так же для английского алфавита, проверять что присутствуют буквы от A до Z хотя бы по одному разу.
      * <br/>
      * A pangram is a sentence that contains every single letter of the alphabet at least once. For example, the sentence "The quick brown fox jumps over the lazy dog" is a pangram, because it uses the letters A-Z at least once (case is irrelevant).
-     *
+     * <p>
      * Given a string, detect whether or not it is a pangram. Return True if it is, False if not. Ignore numbers and punctuation.
+     *
      * @see <a href="https://www.codewars.com/kata/545cedaa9943f7fe7b000048">https://www.codewars.com/kata/545cedaa9943f7fe7b000048</a>
      */
-    public boolean check(String sentence){
+    public boolean check(String sentence) {
         return false;
     }
 
